@@ -1,7 +1,23 @@
 .App {
-  text-align: center;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+table {
+  border: 2px solid forestgreen;
+  width: 800px;
+  height: 200px;
+  margin-left: 300px;
+  margin-top: 20px;
 }
 
+th {
+  border-bottom: 1px solid black;
+}
+
+td {
+
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -14,7 +30,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
