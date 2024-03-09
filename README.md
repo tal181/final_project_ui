@@ -69,6 +69,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
+###  Dependencies 
 npm i styled-components
 npm i react-loader-spinner
-npm install bootstrap
+npm i bootstrap
+npm i react-collapsed
+
+### How to run ?
+npm start

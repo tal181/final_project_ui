@@ -3,50 +3,47 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {SchemaStyles} from "./SchemaStyles";
 import axios from "axios";
-export default function Schema() {
+import {useCollapse} from "react-collapsed";
 
-    const [loading, setLoading] = useState(false);
-    const [data, setData] = useState(false);
-    const [errors, setErrors] = useState(false);
+export default function Schema({data, loading}) {
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
 
-        // const body = {
-        //     "strategy": selectedStrategy,
-        //     "dataSetPath": selectedFilePath,
-        //     "schemaConfig": selectedSchemaFilePath
-        // }
-        const body = {
-            "filePath": "fileSchemaConfig",
-        }
-        await axios.post(
-            'http://localhost:9001/api/schema',
-            body,
-            {headers: {'Content-Type': 'application/json'}}
-        )
-            .then(response => {
-                console.log(response.data);
-                setData(response.data);
-                setLoading(false);
-            })
-            .catch(function (error) {
-                setErrors(error);
-                console.log(error);
-                setLoading(false);
-            });
-    }
+    const {getCollapseProps, getToggleProps, isExpanded} = useCollapse()
+
 
     return (
         <SchemaStyles>
-            <form onSubmit={handleSubmit}>
-                <button  className="btn btn-primary mr-1">
-                    Submit
-                </button>
-            </form>
+
+            {!loading && data &&
+                <div>
+                    <button {...getToggleProps()}>
+                        {isExpanded ? 'Hide schema' : 'Show schema'}
+                    </button>
+                    <section {...getCollapseProps()}>
+                        <table>
+                            <tr>
+                                <th>Column name</th>
+                                <th>Type</th>
+
+                            </tr>
+                            {data.map(check => {
+                                return (
+                                    <tr key={check.columnName}>
+                                        <td>{check.columnName}</td>
+
+                                        <td>{check.type}</td>
+                                    </tr>
+                                )
+                            })}
+                        </table>
+
+                    </section>
+                </div>
+            }
+
         </SchemaStyles>
 
-    );
+    )
+        ;
 
 }

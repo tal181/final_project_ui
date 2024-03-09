@@ -2,7 +2,9 @@ import React from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {ResultsStyles} from "./ResultsStyles";
+import {useCollapse} from "react-collapsed";
 export default function Results({data, loading, strategy}) {
+    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
 
     function createTable(data) {
         let result = []
@@ -41,29 +43,35 @@ export default function Results({data, loading, strategy}) {
             {!loading && data && <label>
                 Total number of checks {createTable(data).length}</label>}
 
-            {!loading && data &&
-                <table>
-                    <tr>
-                        <th>Check name</th>
-                        <th>SQL</th>
-                        <th>Deequ</th>
-                        <th>DQDF</th>
+            <button {...getToggleProps()}>
+                {isExpanded ? 'Hide results' : 'Show results'}
+            </button>
+            <section {...getCollapseProps()}>
 
-                    </tr>
-                    {createTable(data).map(check => {
-                        return (
-                            <tr key={check.checkName}>
-                                <td>{check.checkName}</td>
+                {!loading && data &&
+                    <table>
+                        <tr>
+                            <th>Check name</th>
+                            <th>SQL</th>
+                            <th>Deequ</th>
+                            <th>DQDF</th>
 
-                                <td>{check.sql}</td>
+                        </tr>
+                        {createTable(data).map(check => {
+                            return (
+                                <tr key={check.checkName}>
+                                    <td>{check.checkName}</td>
 
-                                <td>{check.deequ}</td>
+                                    <td>{check.sql}</td>
 
-                                <td>{check.dqdf}</td>
-                            </tr>
-                        )
-                    })}
-                </table>}
+                                    <td>{check.deequ}</td>
+
+                                    <td>{check.dqdf}</td>
+                                </tr>
+                            )
+                        })}
+                    </table>}
+            </section>
         </ResultsStyles>
 
     );
