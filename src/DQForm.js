@@ -16,51 +16,20 @@ export default function DQForm() {
         e.preventDefault();
         setLoading(true);
 
-        // const body = {
-        //     "strategy": selectedStrategy,
-        //     "dataSetPath": selectedFilePath,
-        //     "schemaConfig": selectedSchemaFilePath
-        // }
         const body = {
-            "strategy": "all", //all
-            "dataSetPath": "/Users/tsharon/IdeaProjects/final_project/src/main/resources/text.csv",
-            "schemaConfig": "fileSchemaConfig"
+            "strategy": selectedStrategy,
+            "dataSetPath": selectedFilePath,
+            "schemaConfig": selectedSchemaFilePath
         }
-        // await axios.post(
-        //     'http://localhost:9001/api/strategy/run',
-        //     body,
-        //     {headers: {'Content-Type': 'application/json'}}
-        // )
-        //     .then(response => {
-        //         console.log(response.data);
-        //         setData(response.data);
-        //         setLoading(false);
-        //     })
-        //     .catch(function (error) {
-        //         setErrors(error);
-        //         console.log(error);
-        //         setLoading(false);
-        //     });
+        // const body = {
+        //     "strategy": "all", //all
+        //     "dataSetPath": "/Users/tsharon/IdeaProjects/final_project/src/main/resources/text.csv",
+        //     "schemaConfig": "fileSchemaConfig"
+        // }
 
         const bodySchema = {
-            "filePath": "fileSchemaConfig",
+            "filePath": selectedSchemaFilePath,
         }
-        //
-        // await axios.post(
-        //     'http://localhost:9001/api/schema',
-        //     bodySchema,
-        //     {headers: {'Content-Type': 'application/json'}}
-        // )
-        //     .then(response => {
-        //         console.log(response.data);
-        //         setDataSchema(response.data);
-        //         setLoadingSchema(false);
-        //     })
-        //     .catch(function (error) {
-        //         setErrorsSchema(error);
-        //         console.log(error);
-        //         setLoadingSchema(false);
-        //     });
 
         axios.all([
             await axios.post(
@@ -92,7 +61,7 @@ export default function DQForm() {
             });
     }
 
-    const [selectedStrategy, setSelectedStrategy] = useState('deequ');
+    const [selectedStrategy, setSelectedStrategy] = useState('all');
     const [selectedFilePath, setSelectedFilePath] = useState('');
     const [selectedSchemaFilePath, setSelectedSchemaFilePath] = useState('');
     const [loading, setLoading] = useState(false);
